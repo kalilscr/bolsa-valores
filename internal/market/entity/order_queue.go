@@ -20,7 +20,7 @@ func (oq *OrderQueue) Push(x interface{}) {
 	oq.Orders = append(oq.Orders, x.(*Order))
 }
 
-func (oq *OrderQueue) Pop() interface{} {
+func (oq *OrderQueue) Pop() interface{} { // interface{} == any
 	old := oq.Orders
 	n := len(old)
 	item := old[n-1]
