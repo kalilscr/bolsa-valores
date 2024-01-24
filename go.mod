@@ -3,6 +3,7 @@ module github.com/kalilscr/bolsa-valores/go
 go 1.21.5
 
 require (
+	github.com/confluentinc/confluent-kafka-go/v2 v2.3.0
 	github.com/google/uuid v1.5.0
 	github.com/stretchr/testify v1.8.4
 )
