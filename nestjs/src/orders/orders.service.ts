@@ -63,8 +63,8 @@ export class OrdersService {
     //transacao e travamento
     // ACID --> atomic transaction
     // optimistic lock on mongo to deal with concurrency // version property
-    // needs to implement a queue to retry the transactions that fail because of optmistical lock
-    // an alternative to this lock, can be the pessimistic lock, it blocks the database until the transaction complets // cost more processment
+    // needs to implement a queue to retry the transactions that fail because of optimistical lock
+    // an alternative to this lock, can be the pessimistic lock, it blocks the database until the transaction completes // cost more processment
     // the optimistic way dont block the database but needs a queue to deal with fail transactions
     return this.prismaService.$transaction(async (prisma) => {
       const order = await prisma.order.findUniqueOrThrow({
