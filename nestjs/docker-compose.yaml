@@ -1,6 +1,6 @@
-version: '3'
+# version: '3'
 
-services:
+# services:
   # app:
   #   build: . # Build a partir do Dockerfile
   #   ports:
@@ -13,26 +13,23 @@ services:
   #     - "host.docker.internal:host-gateway"
   #     # não use docker desktop (linux) ou (windows)
 
-  db:
-    image: bitnami/mongodb:5.0.17
-    volumes:
-      - mongodb_data:/bitnami/mongodb
-    environment:
-      MONGODB_ROOT_PASSWORD: root
-      MONGODB_REPLICA_SET_MODE: primary
-      MONGODB_REPLICA_SET_KEY: 123456
-      MONGODB_DATABASE: nest
-    ports: 
-      - 27017:27017
+  # db:
+  #   image: bitnami/mongodb:5.0.17
+  #   volumes:
+  #     - mongodb_data:/bitnami/mongodb
+  #   environment:
+  #     MONGODB_ROOT_PASSWORD: root
+  #     MONGODB_REPLICA_SET_MODE: primary
+  #     MONGODB_REPLICA_SET_KEY: 123456
+  #     MONGODB_DATABASE: nest
       
+# volumes:
+#   mongodb_data:
+#     driver: local
 
-volumes:
-  mongodb_data:
-    driver: local
-
-networks:
-  my-network:
-    external: true
+# networks:
+#   my-network:
+#     external: true
 # //Linux ou Mac
 # /etc/hosts
 
@@ -41,3 +38,21 @@ networks:
 # //Windows
 # C:\Windows\system32\drivers\etc\hosts (bloco de notas como administrador)
 # 127.0.0.1 host.docker.internal
+
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=nestjs
+
+volumes:
+  postgres:
+    driver: local

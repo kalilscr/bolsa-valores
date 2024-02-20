@@ -2,16 +2,17 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Asset {
-  id           String        @id @map("_id")
+  id           String        @id @map("id")
   symbol       String
   price        Float
   created_at   DateTime      @default(now())
@@ -21,7 +22,7 @@ model Asset {
 }
 
 model Wallet {
-  id           String        @id @map("_id")
+  id           String        @id @map("id")
   created_at   DateTime      @default(now())
   updated_at   DateTime      @updatedAt
   WalletAssets WalletAsset[]
@@ -29,12 +30,12 @@ model Wallet {
 }
 
 model WalletAsset {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(uuid()) @map("id") @db.Uuid
   Wallet     Wallet   @relation(fields: [wallet_id], references: [id])
   wallet_id  String
   Asset      Asset    @relation(fields: [asset_id], references: [id])
   asset_id   String
-  shares     Int      @db.Int
+  shares     Int      @db.Integer
   version    Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -43,16 +44,16 @@ model WalletAsset {
 }
 
 model Order {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  id           String        @id @default(uuid()) @map("id") @db.Uuid
   Wallet       Wallet        @relation(fields: [wallet_id], references: [id])
   wallet_id    String
   Asset        Asset         @relation(fields: [asset_id], references: [id])
   asset_id     String
-  shares       Int           @db.Int
+  shares       Int           @db.Integer
   price        Float
   type         OrderType
   status       OrderStatus
-  partial      Int           @db.Int
+  partial      Int           @db.Integer
   version      Int
   created_at   DateTime      @default(now())
   updated_at   DateTime      @updatedAt
@@ -72,12 +73,12 @@ enum OrderStatus {
 }
 
 model Transaction {
-  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                    String   @id @default(uuid()) @map("id") @db.Uuid
   Order                 Order    @relation(fields: [order_id], references: [id])
-  order_id              String   @db.ObjectId
+  order_id              String   @db.Uuid
   related_investor_id   String
   broker_transaction_id String
-  shares                Int      @db.Int
+  shares                Int      @db.Integer
   price                 Float
   created_at            DateTime @default(now())
   updated_at            DateTime @updatedAt

@@ -21,6 +21,14 @@ POST http://localhost:3000/wallets
 Content-Type: application/json
 
 {
+  "id": "wallet1"
+}
+
+###
+POST http://localhost:3000/wallets
+Content-Type: application/json
+
+{
   "id": "wallet2"
 }
 
@@ -31,7 +39,7 @@ GET http://localhost:3000/wallets/wallet1/assets
 GET http://localhost:3000/wallets/wallet2/assets
 
 ###
-POST http://localhost:3000/wallets/wallet1/assets
+POST http://localhost:3000/wallets/wallet2/assets
 Content-Type: application/json
 
 {
@@ -69,7 +77,7 @@ POST http://localhost:3000/wallets/wallet1/orders/execute
 Content-Type: application/json
 
 {
-  "order_id": "6490eeae9a0e7fbce01e1f0f",
+  "order_id": "8803f326-96ce-4f4e-a08f-5ecd28d248b4",
   "status": "CLOSED",
   "related_investor_id": "xxxx",
   "broker_transaction_id": "xxxx",
