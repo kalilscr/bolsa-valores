@@ -1,23 +1,22 @@
-GET http://localhost:3000
 
 ###
-POST http://localhost:3000/assets
+POST http://localhost:3001/assets
 Content-Type: application/json
 
 {
-  "id": "asset2",
+  "id": "asset1",
   "symbol": "A1",
-  "price": 100
+  "price": 50
 }
 
 ###
-GET http://localhost:3000/assets
+GET http://localhost:3001/assets
 
 ###
-GET http://localhost:3000/wallets
+GET http://localhost:3001/wallets
 
 ###
-POST http://localhost:3000/wallets
+POST http://localhost:3001/wallets
 Content-Type: application/json
 
 {
@@ -25,7 +24,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/wallets
+POST http://localhost:3001/wallets
 Content-Type: application/json
 
 {
@@ -33,33 +32,33 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/wallets/wallet1/assets
+GET http://localhost:3001/wallets/wallet1/assets
 
 ###
-GET http://localhost:3000/wallets/wallet2/assets
+GET http://localhost:3001/wallets/wallet2/assets
 
 ###
-POST http://localhost:3000/wallets/wallet2/assets
+POST http://localhost:3001/wallets/wallet2/assets
 Content-Type: application/json
 
 {
-  "asset_id": "asset2",
-  "shares": 10
+  "asset_id": "asset1",
+  "shares": 19
 }
 
 ###
-POST http://localhost:3000/wallets/wallet1/orders
+POST http://localhost:3001/wallets/wallet1/orders
 Content-Type: application/json
 
 {
-  "asset_id": "asset2",
+  "asset_id": "asset1",
   "shares": 5,
   "price": 100,
   "type": "SELL"
 }
 
 ###
-POST http://localhost:3000/wallets/wallet2/orders
+POST http://localhost:3001/wallets/wallet2/orders
 Content-Type: application/json
 
 {
@@ -70,10 +69,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/wallets/wallet1/orders
+GET http://localhost:3001/wallets/wallet1/orders
 
 ###
-POST http://localhost:3000/wallets/wallet1/orders/execute
+POST http://localhost:3001/wallets/wallet1/orders/execute
 Content-Type: application/json
 
 {

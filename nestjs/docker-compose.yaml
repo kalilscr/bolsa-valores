@@ -1,27 +1,27 @@
-# version: '3'
+# version: '3.9'
 
 # services:
-  # app:
-  #   build: . # Build a partir do Dockerfile
-  #   ports:
-  #     - 3000:3000
-  #     - 5555:5555
-  #   volumes:
-  #     - .:/home/node/app
-  #   extra_hosts:
-  #     #- "host.docker.internal:172.17.0.1"
-  #     - "host.docker.internal:host-gateway"
-  #     # não use docker desktop (linux) ou (windows)
-
-  # db:
-  #   image: bitnami/mongodb:5.0.17
-  #   volumes:
-  #     - mongodb_data:/bitnami/mongodb
-  #   environment:
-  #     MONGODB_ROOT_PASSWORD: root
-  #     MONGODB_REPLICA_SET_MODE: primary
-  #     MONGODB_REPLICA_SET_KEY: 123456
-  #     MONGODB_DATABASE: nest
+#   db:
+#     build: 
+#       context: ./prisma/docker/mongodb-replica-set
+#       args:
+#        MONGO_VERSION: 6
+#     restart: unless-stopped
+#     ports:
+#     - 27017:27017
+#     environment:
+#       MONGO_INITDB_ROOT_USERNAME: root
+#       MONGO_INITDB_ROOT_PASSWORD: root
+#       MONGODB_INITDB_DATABASE: nest
+#       MONGO_REPLICA_HOST: 127.0.0.1
+#       MONGO_REPLICA_PORT: 27017
+#       MONGO_COMMAND: 'mongosh'
+#     # healthcheck:
+#     #   # Use "mongo" instead of "mongosh" before v5.0
+#     #   test: ['CMD', 'mongosh', 'admin', '--port', '27017', '--eval', "db.adminCommand('ping').ok"]
+#     #   interval: 5s
+#     #   timeout: 2s
+#     #   retries: 20  
       
 # volumes:
 #   mongodb_data:
@@ -30,29 +30,26 @@
 # networks:
 #   my-network:
 #     external: true
-# //Linux ou Mac
-# /etc/hosts
 
-# 127.0.0.1 host.docker.internal
+# # //Linux ou Mac
+# # /etc/hosts
 
-# //Windows
-# C:\Windows\system32\drivers\etc\hosts (bloco de notas como administrador)
-# 127.0.0.1 host.docker.internal
+# # 127.0.0.1 host.docker.internal
 
-version: '3.9'
+# # //Windows
+# # C:\Windows\system32\drivers\etc\hosts (bloco de notas como administrador)
+# # 127.0.0.1 host.docker.internal
 
+
+version: '3.7'
 services:
-  postgres:
-    image: postgres:14-alpine
-    ports:
-      - 5432:5432
-    volumes:
-      - ~/apps/postgres:/var/lib/postgresql/data
+  mongodb_container:
+    # This image automatically creates a replica set required for transactions
+    image: prismagraphql/mongo-single-replica:5.0.3
     environment:
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_USER=admin
-      - POSTGRES_DB=nestjs
-
-volumes:
-  postgres:
-    driver: local
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGODB_INITDB_DATABASE: nest
+      INIT_WAIT_SEC: 3
+    ports:
+      - 27017:27017
