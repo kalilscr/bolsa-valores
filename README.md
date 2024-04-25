@@ -37,3 +37,18 @@ $ npm install
 
 $ npm run dev
 ```
+
+### Some Used Technologies
+
+- Golang
+- Apache Kafka
+- Confluent control center
+- ZooKeeper
+- Nestjs
+- Server Sent Events
+- Nextjs
+- Tailwind
+- Docker Compose
+- MongoDB
+- Microservices
+- Typescript
